@@ -1,0 +1,141 @@
+{% load static %}
+
+<footer class="py-5 px-3 px-lg-5 mx-lg-5">
+  <div class="row">
+    <div class="col-6 col-md-2 mb-3">
+      <h5>Lien Rapide</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2">
+          <a href="{% url 'accueil' %}" class="nav-link p-0 text-body-secondary"
+            >Accueil</a
+          >
+        </li>
+        <li class="nav-item mb-2">
+          <a href="{% url 'about' %}" class="nav-link p-0 text-body-secondary"
+            >A propos</a
+          >
+        </li>
+
+        <li class="nav-item mb-2">
+          <a href="" class="nav-link p-0 text-body-secondary">Actualité</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-6 col-md-2 mb-3">
+      <h5>Section</h5>
+      <ul class="nav flex-column">
+        <li class="nav-item mb-2">
+          <a href="#" class="nav-link p-0 text-body-secondary">Home</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a href="#" class="nav-link p-0 text-body-secondary">Features</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a href="#" class="nav-link p-0 text-body-secondary">Pricing</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a href="#" class="nav-link p-0 text-body-secondary">FAQs</a>
+        </li>
+        <li class="nav-item mb-2">
+          <a href="#" class="nav-link p-0 text-body-secondary">About</a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-5 offset-md-1 mb-3">
+      <form id="newsletter-form" method="post" action="">
+        {% csrf_token %}
+        <h5>Souscrire à notre newsletter</h5>
+        <p>Monthly digest of what's new and exciting from us.</p>
+        <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+          <label for="newsletter1" class="visually-hidden">Email address</label>
+          <input
+            id="newsletter1"
+            name="email"
+            type="email"
+            class="form-control"
+            placeholder="Email address"
+            required
+          />
+          <button class="btn btn-primary" type="submit">Subscribe</button>
+        </div>
+      </form>
+      <div id="newsletter-message" class="mt-2"></div>
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          const form = document.getElementById("newsletter-form");
+          const messageDiv = document.getElementById("newsletter-message");
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            fetch(form.action, {
+              method: "POST",
+              headers: {
+                "X-Requested-With": "XMLHttpRequest",
+                "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+              },
+              body: formData,
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                messageDiv.innerHTML = `<div class="alert ${
+                  data.success ? "alert-success" : "alert-warning"
+                } alert-dismissible fade show" role="alert">${
+                  data.message
+                }<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button></div>`;
+                if (data.success) form.reset();
+              })
+              .catch(() => {
+                messageDiv.innerHTML =
+                  '<div class="alert alert-danger alert-dismissible fade show" role="alert">Erreur lors de l\'inscription. Veuillez réessayer.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button></div>';
+              });
+          });
+        });
+      </script>
+
+      {% if messages %}
+      <div class="mt-2">
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  <div
+    class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top"
+  >
+    <p>&copy; 2025 Company, Inc. All rights reserved.</p>
+    <ul class="list-unstyled d-flex">
+      <li class="ms-3">
+        <a class="link-body-emphasis" href="#" aria-label="linkedin">
+          <img
+            src="{% static 'images/svg/linkedin.svg' %}"
+            alt="linkedin"
+            width="24"
+            height="24"
+          />
+        </a>
+      </li>
+      <li class="ms-3">
+        <a class="link-body-emphasis" href="#" aria-label="Facebook">
+          <img
+            src="{% static 'images/svg/instagram.svg' %}"
+            alt="Instagram"
+            width="24"
+            height="24"
+          />
+        </a>
+      </li>
+      <li class="ms-3">
+        <a class="link-body-emphasis" href="#" aria-label="Facebook">
+          <img
+            src="{% static 'images/svg/facebook.svg' %}"
+            alt="facebook"
+            width="24"
+            height="24"
+          />
+        </a>
+      </li>
+    </ul>
+  </div>
+</footer>
