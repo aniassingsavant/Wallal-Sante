@@ -44,10 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
         'rest_framework', # pour créer une API
         'corsheaders', # pour autoriser les conexions du mobile 
+        'rest_framework_simplejwt',
         'api', # app locale
-        'accueil', # page d'accueil
-        'chatbot' ,#page du chatbot
-        'conseils', #page des conseils
 
 ]
 
@@ -76,7 +74,7 @@ ROOT_URLCONF = 'wallalsante.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -95,9 +93,14 @@ WSGI_APPLICATION = 'wallalsante.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.getenv("DB_NAME"),
+        "USER": os.getenv("DB_USER"),
+        "PASSWORD":
+os.getenv("DB_PASSWORD"),
+        "HOST": os.getenv("DB_HOST"),
+         "PORT": os.getenv("DB_PORT")
     }
 }
 
@@ -137,10 +140,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

@@ -1,8 +1,23 @@
 from django.urls import path
-from . import views
+from .views import (
+    RegisterView,
+    EtablissementsLiveOSMView,
+    translate,  
+)
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
 urlpatterns = [
-    path('analyse/', views.analyse, name='analyse'),
-    path('translate/', views.translate, name='translate'),
-    path('status/', views.status, name='status'),
+    # Authentification
+    path('register/', RegisterView.as_view(), name='register'),
+    path('login/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('login/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    # Géolocalisation live OSM
+    path('etablissements/live-osm/', EtablissementsLiveOSMView.as_view(), name='etablissements_live_osm'),
+
+    # Traduction via IA
+    path('translate/', translate, name='translate'), 
 ]
