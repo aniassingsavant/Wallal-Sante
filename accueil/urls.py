@@ -1,9 +1,0 @@
-from django.urls import path
-from . import views
-
-urlpatterns = [
-    #les routes vers les pages html
-    path('', views.accueil, name='accueil'),
-     path('about/', views.a_propos, name='about'),
-
-]
