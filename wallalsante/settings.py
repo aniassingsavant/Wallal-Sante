@@ -46,7 +46,7 @@ INSTALLED_APPS = [
         'corsheaders', # pour autoriser les conexions du mobile 
         'api', # app locale
         'accueil', # page d'accueil
-        'chatbot' ,#page du chatbot
+        'chatbot',#page du chatbot
         'conseils', #page des conseils
 
 ]
