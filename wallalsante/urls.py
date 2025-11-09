@@ -22,10 +22,15 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),  # routes de l'app api
-    path('',include('accueil.urls')), # routes de l'app accueil
-    path('',include('chatbot.urls')), # routes de l'app chatbot
-    path('',include('conseils.urls')), # routes de l'app conseils
-] 
+    # NOUVELLES URLs POUR L'AUTHENTIFICATION
+    # dj-rest-auth fournit automatiquement :
+    # /api/auth/login/ (Connexion)
+    # /api/auth/logout/ (Déconnexion)
+    # /api/auth/registration/ (Inscription)
+    path('api/auth/', include('dj_rest_auth.urls')),
+    path('api/auth/registration/', include('dj_rest_auth.registration.urls')),
+
+]
 
 # servir media en dev (audio)
 if settings.DEBUG:

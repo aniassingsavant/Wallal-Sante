@@ -42,15 +42,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites', # Requis par allauth
         'rest_framework', # pour créer une API
         'corsheaders', # pour autoriser les conexions du mobile 
+        'rest_framework.authtoken', # Ajouté
+    
+    'dj_rest_auth',             # Ajouté
+    'dj_rest_auth.registration',# Ajouté
+    
+    'allauth',                  # Requis par dj-rest-auth
+    'allauth.account',          # Requis par dj-rest-auth
+    'allauth.socialaccount',
         'api', # app locale
-        'accueil', # page d'accueil
-        'chatbot' ,#page du chatbot
-        'conseils', #page des conseils
 
 ]
 
+AUTH_USER_MODEL = 'api.User'
+
+SITE_ID = 1
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     'django.middleware.security.SecurityMiddleware',
@@ -58,6 +67,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -76,7 +86,7 @@ ROOT_URLCONF = 'wallalsante.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -138,11 +148,33 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+# --- Configuration de Django Rest Framework (DRF) ---
+# Dites à DRF comment gérer l'authentification
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        # Utiliser l'authentification JWT
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        # Par défaut, exiger que l'utilisateur soit connecté
+        'rest_framework.permissions.IsAuthenticated', 
+    ),
+}
+
+# --- Configuration de dj-rest-auth et Simple JWT ---
+# Indique à dj-rest-auth d'utiliser les tokens JWT
+REST_AUTH = {
+    'REQUIRE_PASSWORD_CONFIRMATION': False,
+    'USE_JWT': True,
+    'JWT_AUTH_COOKIE': 'my-app-auth',
+}
+
+# --- Configuration de Allauth (pour l'inscription) ---
+ACCOUNT_EMAIL_VERIFICATION = 'none' # Pas de vérification d'email (plus simple pour le hackathon)
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False # On se connecte avec l'email, pas un pseudo
