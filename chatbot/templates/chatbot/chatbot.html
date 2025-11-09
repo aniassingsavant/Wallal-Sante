@@ -1,87 +1,806 @@
-{% extends "base2.html" %} 
-{% block title %} Chatbot {% endblock %} 
-{% block content %}
-<div
-  class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark"
-  style="width: 280px"
->
-  <a
-    href="/"
-    class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none"
-  >
-    <svg class="bi pe-none me-2" width="40" height="32" aria-hidden="true">
-      <use xlink:href="#bootstrap"></use>
-    </svg>
-    <span class="fs-4">Sidebar</span>
-  </a>
-  <hr />
-  <ul class="nav nav-pills flex-column mb-auto">
-    <li class="nav-item">
-      <a href="#" class="nav-link active" aria-current="page">
-        <svg class="bi pe-none me-2" width="16" height="16" aria-hidden="true">
-          <use xlink:href="#home"></use>
-        </svg>
-        Home
-      </a>
-    </li>
-    <li>
-      <a href="#" class="nav-link text-white">
-        <svg class="bi pe-none me-2" width="16" height="16" aria-hidden="true">
-          <use xlink:href="#speedometer2"></use>
-        </svg>
-        Dashboard
-      </a>
-    </li>
-    <li>
-      <a href="#" class="nav-link text-white">
-        <svg class="bi pe-none me-2" width="16" height="16" aria-hidden="true">
-          <use xlink:href="#table"></use>
-        </svg>
-        Orders
-      </a>
-    </li>
-    <li>
-      <a href="#" class="nav-link text-white">
-        <svg class="bi pe-none me-2" width="16" height="16" aria-hidden="true">
-          <use xlink:href="#grid"></use>
-        </svg>
-        Products
-      </a>
-    </li>
-    <li>
-      <a href="#" class="nav-link text-white">
-        <svg class="bi pe-none me-2" width="16" height="16" aria-hidden="true">
-          <use xlink:href="#people-circle"></use>
-        </svg>
-        Customers
-      </a>
-    </li>
-  </ul>
-  <hr />
-  <div class="dropdown">
-    <a
-      href="#"
-      class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
-      data-bs-toggle="dropdown"
-      aria-expanded="false"
-    >
-      <img
-        src="https://github.com/mdo.png"
-        alt=""
-        width="32"
-        height="32"
-        class="rounded-circle me-2"
-      />  
-      <strong>mdo</strong>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
-      <li><a class="dropdown-item" href="#">New project...</a></li>
-      <li><a class="dropdown-item" href="#">Settings</a></li>
-      <li><a class="dropdown-item" href="#">Profile</a></li>
-      <li><hr class="dropdown-divider" /></li>
-      <li><a class="dropdown-item" href="#">Sign out</a></li>
-    </ul>
-  </div>
-</div>
+{% load static %} {% load i18n %}
+<!DOCTYPE html>
 
-{% endblock %}
+<html lang="fr" data-bs-theme="auto" class="min-vh-100">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Accueil{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="shortcut icon"
+      href="{% static 'images/logo.png' %}"
+      type="image/x-icon"
+    />
+
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+    <link
+      rel="shortcut icon"
+      href="{% static 'images/logo.png' %}"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/carousel.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/cover.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/blog.css' %}" />
+    <!-- Swiper CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}" />
+
+    <!-- Animate.css pour des effets supplémentaires -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <style>
+      :root {
+        --green: #2e8b57;
+        --orange: #f4a261;
+        --sky: #4ea8de;
+        --sand: #faebd7;
+        --dark: #333333;
+        --rounded: 14px;
+      }
+      body {
+        font-family: "Poppins", system-ui, -apple-system, "Segoe UI", Roboto,
+          "Helvetica Neue", Arial;
+        background: linear-gradient(180deg, #ffffff 0%, #faf8f6 100%);
+        color: var(--dark);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        height: 100vh;
+      }
+
+      /* Container */
+      .chat-wrapper {
+        max-width: 1100px;
+        margin: 28px auto;
+        height: 88vh;
+        display: flex;
+        gap: 20px;
+        align-items: stretch;
+      }
+
+      /* Sidebar */
+      .sidebar {
+        width: 260px;
+        background: #fff;
+        border-radius: 16px;
+        padding: 16px;
+        box-shadow: 0 6px 18px rgba(46, 139, 87, 0.06);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .brand .logo {
+        width: 44px;
+        height: 44px;
+        border-radius: 10px;
+        background: var(--green);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: 700;
+        font-size: 20px;
+      }
+      .convo-list {
+        flex: 1;
+        overflow: auto;
+        padding-right: 4px;
+      }
+      .convo-item {
+        padding: 10px;
+        border-radius: 10px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        cursor: pointer;
+      }
+      .convo-item:hover {
+        background: #fbf9f8;
+      }
+
+      /* Chat area */
+      .chat-area {
+        flex: 1;
+        background: #fff;
+        border-radius: 16px;
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+      }
+      .chat-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #f2f2f2;
+        padding-bottom: 12px;
+      }
+      .chat-messages {
+        flex: 1;
+        overflow: auto;
+        padding: 18px 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      /* bubbles */
+      .bubble {
+        max-width: 78%;
+        padding: 12px 14px;
+        border-radius: 14px;
+        line-height: 1.25;
+      }
+      .bubble.bot {
+        background: linear-gradient(180deg, var(--sand), #fff);
+        border: 1px solid rgba(46, 139, 87, 0.06);
+        align-self: flex-start;
+        border-bottom-left-radius: 6px;
+      }
+      .bubble.user {
+        background: var(--green);
+        color: white;
+        align-self: flex-end;
+        border-bottom-right-radius: 6px;
+      }
+      .meta {
+        font-size: 11px;
+        color: #666;
+        margin-top: 6px;
+      }
+
+      /* input area */
+      .composer {
+        display: flex;
+        gap: 8px;
+        padding-top: 12px;
+        align-items: center;
+      }
+      .composer .form-control {
+        border-radius: 12px;
+        padding: 12px 14px;
+      }
+      .btn-send {
+        background: var(--green);
+        color: white;
+        border-radius: 12px;
+        padding: 10px 16px;
+        border: none;
+      }
+      .btn-send:disabled {
+        opacity: 0.6;
+      }
+
+      /* small screens */
+      @media (max-width: 900px) {
+        .sidebar {
+          display: none;
+        }
+        .chat-wrapper {
+          margin: 12px;
+          height: 94vh;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="h-100 py-0">
+    <header class="">
+      <nav
+        class="navbar navbar-expand-lg bg-body-tertiary bg-opacity-100 pb-0 mb-0 fixed-top"
+      >
+        <div class="container-fluid">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarsExample11"
+            aria-controls="navbarsExample11"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse d-lg-flex justify-content-center"
+            id="navbarsExample11"
+          >
+            <div
+              class="navbar-brand d-flex align-items-center col-lg-2 me-0 py-0"
+            >
+              <img
+                class="float-md-start mb-0 rounded-2 md-2"
+                src="{% static 'images/logo.png' %}"
+                width="100"
+                height="100"
+                alt="logo"
+              />
+              <p>&nbsp;&nbsp;</p>
+              <h5 class="h5 brand animate__animated" id="navbar-typed">
+                &nbsp;
+              </h5>
+            </div>
+            <script>
+              // Animation du titre navbar : fade, 3 cycles, puis reste sur Woila Community
+              document.addEventListener("DOMContentLoaded", function () {
+                const brand = document.getElementById("navbar-typed");
+                const words = [
+                  "Wallal Sante",
+                  "Pour le Bien être",
+                  "Pour votre Santé",
+                ];
+                let wordIndex = 0;
+                let loopCount = 0;
+                const maxLoops = 3;
+                function showWordFade() {
+                  brand.classList.remove("animate__fadeIn");
+                  void brand.offsetWidth; // force reflow
+                  brand.textContent = words[wordIndex];
+                  brand.classList.add("animate__fadeIn");
+                  wordIndex++;
+                  if (wordIndex >= words.length) {
+                    wordIndex = 0;
+                    loopCount++;
+                  }
+                  if (loopCount < maxLoops) {
+                    setTimeout(showWordFade, 1200);
+                  } else {
+                    brand.textContent = "Wallal Santé";
+                  }
+                }
+                showWordFade();
+              });
+            </script>
+
+            <ul
+              class="float-md-end mt-2 gap-4 navbar-nav col-lg-7 justify-content-lg-center"
+            >
+              <li class="nav-item">
+                <a
+                  class="nav-link fw-bold py-1 px-0 active"
+                  aria-current="page"
+                  href="{% url 'accueil' %}"
+                  >Accueil</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-bold py-1 px-0" href="{% url 'about' %}"
+                  >À propos</a
+                >
+              </li>
+              <li class="nav-item">
+                <a
+                  class="nav-link fw-bold py-1 px-0 active"
+                  aria-current="page"
+                  href="{}"
+                  >Conseils</a
+                >
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link fw-bold py-1 px-0" href="">Actualité</a>
+              </li>
+              <li class="nav-item">
+                {% if not user.is_authenticated %} {% endif %}
+              </li>
+            </ul>
+            <div class="d-lg-flex col-lg-3 justify-content-lg-end">
+              {% if not user.is_authenticated %}
+              <p class="btn bg-outline-primary">
+                <a href="" class="link-light">S'inscrire</a>
+              </p>
+              <p class="text-gdd">|</p>
+              <p class="btn bg-outline-primary">
+                <a href="" class="link-light">Se connecter</a>
+              </p>
+              {% else %}
+              <p class="btn bg-outline-primary">
+                <a href="{% url 'deconnexion' %}" class="link-light"
+                  >Se déconnecter</a
+                >
+              </p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
+      <symbol id="check2" viewBox="0 0 16 16">
+        <path
+          d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"
+        ></path>
+      </symbol>
+      <symbol id="circle-half" viewBox="0 0 16 16">
+        <path
+          d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z"
+        ></path>
+      </symbol>
+      <symbol id="moon-stars-fill" viewBox="0 0 16 16">
+        <path
+          d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"
+        ></path>
+        <path
+          d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"
+        ></path>
+      </symbol>
+      <symbol id="sun-fill" viewBox="0 0 16 16">
+        <path
+          d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"
+        ></path>
+      </symbol>
+    </svg>
+    <div
+      class="dropdown position-fixed bottom-0 end-0 mb-3 me-3 bd-mode-toggle"
+    >
+      <button
+        class="btn btn-bd-primary py-2 dropdown-toggle d-flex align-items-center"
+        id="bd-theme"
+        type="button"
+        aria-expanded="false"
+        data-bs-toggle="dropdown"
+        aria-label="Toggle theme (auto)"
+        style="background-color: #0a53be !important; border: none"
+      >
+        <svg class="bi my-1 theme-icon-active" aria-hidden="true">
+          <use href="#circle-half"></use>
+        </svg>
+        <span class="visually-hidden" id="bd-theme-text">Toggle theme</span>
+      </button>
+      <ul
+        class="dropdown-menu dropdown-menu-end shadow"
+        aria-labelledby="bd-theme-text"
+      >
+        <li>
+          <button
+            type="button"
+            class="dropdown-item d-flex align-items-center"
+            data-bs-theme-value="light"
+            aria-pressed="false"
+          >
+            <svg class="bi me-2 opacity-50" aria-hidden="true">
+              <use href="#sun-fill"></use>
+            </svg>
+            Light
+            <svg class="bi ms-auto d-none" aria-hidden="true">
+              <use href="#check2"></use>
+            </svg>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            class="dropdown-item d-flex align-items-center"
+            data-bs-theme-value="dark"
+            aria-pressed="false"
+          >
+            <svg class="bi me-2 opacity-50" aria-hidden="true">
+              <use href="#moon-stars-fill"></use>
+            </svg>
+            Dark
+            <svg class="bi ms-auto d-none" aria-hidden="true">
+              <use href="#check2"></use>
+            </svg>
+          </button>
+        </li>
+        <li>
+          <button
+            type="button"
+            class="dropdown-item d-flex align-items-center active"
+            data-bs-theme-value="auto"
+            aria-pressed="true"
+          >
+            <svg class="bi me-2 opacity-50" aria-hidden="true">
+              <use href="#circle-half"></use>
+            </svg>
+            Auto
+            <svg class="bi ms-auto d-none" aria-hidden="true">
+              <use href="#check2"></use>
+            </svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <nav
+      class="navbar navbar-expand-lg bg-body-tertiary bg-opacity-100 pb-0 mb-0 fixed-top"
+    >
+      <div class="container-fluid">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarsExample11"
+          aria-controls="navbarsExample11"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div
+          class="collapse navbar-collapse d-lg-flex justify-content-center"
+          id="navbarsExample11"
+        >
+          <div
+            class="navbar-brand d-flex align-items-center col-lg-2 me-0 py-0"
+          >
+            <img
+              class="float-md-start mb-0 rounded-2 md-2"
+              src="{% static 'images/logo.png' %}"
+              width="100"
+              height="100"
+              alt="logo"
+            />
+            <p>&nbsp;&nbsp;</p>
+            <h5 class="h5 brand animate__animated" id="navbar-typed">&nbsp;</h5>
+          </div>
+          <script>
+            // Animation du titre navbar : fade, 3 cycles, puis reste sur Woila Community
+            document.addEventListener("DOMContentLoaded", function () {
+              const brand = document.getElementById("navbar-typed");
+              const words = [
+                "Wallal Sante",
+                "Pour le Bien être",
+                "Pour votre Santé",
+              ];
+              let wordIndex = 0;
+              let loopCount = 0;
+              const maxLoops = 3;
+              function showWordFade() {
+                brand.classList.remove("animate__fadeIn");
+                void brand.offsetWidth; // force reflow
+                brand.textContent = words[wordIndex];
+                brand.classList.add("animate__fadeIn");
+                wordIndex++;
+                if (wordIndex >= words.length) {
+                  wordIndex = 0;
+                  loopCount++;
+                }
+                if (loopCount < maxLoops) {
+                  setTimeout(showWordFade, 1200);
+                } else {
+                  brand.textContent = "Wallal Santé";
+                }
+              }
+              showWordFade();
+            });
+          </script>
+
+          <ul
+            class="float-md-end mt-2 gap-4 navbar-nav col-lg-7 justify-content-lg-center"
+          >
+            <li class="nav-item">
+              <a
+                class="nav-link fw-bold py-1 px-0 active"
+                aria-current="page"
+                href="{% url 'accueil' %}"
+                >Accueil</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link fw-bold py-1 px-0" href="{% url 'about' %}"
+                >À propos</a
+              >
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link fw-bold py-1 px-0" href="">Actualité</a>
+            </li>
+            <li class="nav-item">
+              {% if not user.is_authenticated %} {% endif %}
+            </li>
+          </ul>
+          <div class="d-lg-flex col-lg-3 justify-content-lg-end">
+            {% if not user.is_authenticated %}
+            <p class="btn bg-outline-primary">
+              <a href="" class="link-light">S'inscrire</a>
+            </p>
+            <p class="text-gdd">|</p>
+            <p class="btn bg-outline-primary">
+              <a href="" class="link-light">Se connecter</a>
+            </p>
+            {% else %}
+            <p class="btn bg-outline-primary">
+              <a href="{% url 'deconnexion' %}" class="link-light"
+                >Se déconnecter</a
+              >
+            </p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const links = document.querySelectorAll(".nav-link");
+        const path = window.location.pathname;
+
+        links.forEach((link) => {
+          if (link.getAttribute("href") === path) {
+            link.classList.add("active");
+          } else {
+            link.classList.remove("active");
+          }
+        });
+      });
+    </script>
+
+    {% block content %} {% if user.is_authenticated %}
+    <a href="">Se déconnecter</a>
+    {% else %}
+    <a href=" ">Se connecter</a>
+    <a href="">S'inscrire</a>
+    {% endif %} {% endblock %}
+
+    <div class="chat-wrapper px-3">
+      <!-- Sidebar -->
+      <aside class="sidebar" aria-label="Navigation conversation">
+        <div class="brand">
+          <div class="logo" aria-hidden>W</div>
+          <div>
+            <div style="font-weight: 600">Wallal Santé</div>
+            <div style="font-size: 12px; color: #666">
+              Assistant santé — Fulfulde & Français
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex gap-2 align-items-center mt-2">
+          <button id="startBtn" class="btn btn-outline-secondary btn-sm w-100">
+            Nouvelle conversation
+          </button>
+        </div>
+
+        <div class="convo-list mt-2" id="convoList" role="list">
+          <!-- exemple -->
+          <div class="convo-item" role="listitem" tabindex="0">
+            <div
+              style="
+                width: 44px;
+                height: 44px;
+                border-radius: 8px;
+                background: var(--sand);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+              "
+            >
+              🤖
+            </div>
+            <div style="flex: 1">
+              <div style="font-weight: 600">Assistant</div>
+              <div style="font-size: 12px; color: #666">
+                Conseils de prévention
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="font-size: 12px; color: #666">Langue</div>
+        <div class="d-flex gap-2">
+          <button class="btn btn-sm btn-outline-primary" id="langFr">
+            Français
+          </button>
+          <button
+            class="btn btn-sm"
+            id="langFul"
+            style="background: var(--orange); color: #fff"
+          >
+            Fulfulde
+          </button>
+        </div>
+
+        <div style="font-size: 12px; color: #666; margin-top: 12px">
+          Centres proches
+        </div>
+        <div style="font-size: 13px; color: var(--dark); font-weight: 600">
+          0 trouvés — actif en mode démo
+        </div>
+      </aside>
+
+      <!-- Chat principale -->
+      <main class="chat-area" role="main">
+        <div class="chat-header">
+          <div>
+            <div style="font-weight: 700; font-size: 18px">
+              Assistant Wallal Santé
+            </div>
+            <div style="font-size: 13px; color: #666">
+              Posez vos questions de santé — réponses en français et Fulfulde
+            </div>
+          </div>
+          <div class="d-flex align-items-center gap-2">
+            <button
+              class="btn btn-sm"
+              title="Activer la lecture vocale"
+              id="ttsBtn"
+            >
+              🔊
+            </button>
+            <button class="btn btn-sm btn-outline-secondary" id="helpBtn">
+              Aide
+            </button>
+          </div>
+        </div>
+
+        <div
+          class="chat-messages"
+          id="messages"
+          aria-live="polite"
+          aria-atomic="false"
+        >
+          <!-- messages dynamiques -->
+          <div class="bubble bot" data-role="bot">
+            Bonjour 👋, je suis Wallal, votre assistant santé. Comment puis-je
+            vous aider aujourd'hui ?
+            <div class="meta">Assistant • maintenant</div>
+          </div>
+        </div>
+
+        <form
+          id="composer"
+          class="composer"
+          onsubmit="return false;"
+          aria-label="Envoyer un message"
+        >
+          <input
+            id="messageInput"
+            class="form-control"
+            placeholder="Écrire un message ou demander 'centre le plus proche'"
+            aria-label="Message"
+            autocomplete="off"
+          />
+          <button id="sendBtn" class="btn-send" type="button">Envoyer</button>
+        </form>
+      </main>
+    </div>
+
+    <!-- Optional: Bootstrap JS and dependencies (popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+      // === Configuration ===
+      // Remplacez par l'URL de votre endpoint Django qui renvoie la réponse AI
+      const API_URL = "/api/assistant/"; // <-- à adapter
+
+      const messagesEl = document.getElementById("messages");
+      const inputEl = document.getElementById("messageInput");
+      const sendBtn = document.getElementById("sendBtn");
+      const startBtn = document.getElementById("startBtn");
+
+      function appendBubble(text, who = "bot") {
+        const div = document.createElement("div");
+        div.className = "bubble " + (who === "user" ? "user" : "bot");
+        div.innerHTML =
+          text +
+          '<div class="meta">' +
+          (who === "user" ? "Vous" : "Assistant") +
+          " • " +
+          new Date().toLocaleTimeString() +
+          "</div>";
+        messagesEl.appendChild(div);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      }
+
+      // Demo: envoi local + mock reply (remplacer par fetch vers votre backend)
+      async function sendMessage() {
+        const text = inputEl.value.trim();
+        if (!text) return;
+        appendBubble(escapeHtml(text), "user");
+        inputEl.value = "";
+        sendBtn.disabled = true;
+
+        // Afficher un loader de réponse
+        const loader = document.createElement("div");
+        loader.className = "bubble bot";
+        loader.id = "loader";
+        loader.innerHTML = "Génération de la réponse...";
+        messagesEl.appendChild(loader);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+
+        try {
+          // Exemple: simulation d'appel réseau
+          await new Promise((r) => setTimeout(r, 900));
+
+          // TODO: si vous avez un endpoint Django, remplacez la partie ci-dessous par un fetch POST
+          // const resp = await fetch(API_URL, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({message:text, lang:'fr'})});
+          // const data = await resp.json();
+          // const reply = data.reply || 'Désolé, je n\'ai pas de réponse.';
+
+          // Mock reply basique
+          const reply = mockReply(text);
+
+          const loaderEl = document.getElementById("loader");
+          if (loaderEl) loaderEl.remove();
+          appendBubble(escapeHtml(reply), "bot");
+        } catch (err) {
+          const loaderEl = document.getElementById("loader");
+          if (loaderEl) loaderEl.remove();
+          appendBubble("Erreur réseau — vérifiez votre connexion.", "bot");
+        } finally {
+          sendBtn.disabled = false;
+        }
+      }
+
+      sendBtn.addEventListener("click", sendMessage);
+      inputEl.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          sendMessage();
+        }
+      });
+      startBtn.addEventListener("click", () => {
+        messagesEl.innerHTML = "";
+        appendBubble(
+          "Bonjour 👋, je suis Wallal, votre assistant santé. Comment puis-je vous aider aujourd'hui ?",
+          "bot"
+        );
+      });
+
+      function escapeHtml(unsafe) {
+        return unsafe
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      function mockReply(text) {
+        const t = text.toLowerCase();
+        if (
+          t.includes("centre") ||
+          t.includes("hôpital") ||
+          t.includes("hopital") ||
+          t.includes("proche")
+        ) {
+          return "Je peux vous aider à trouver le centre de santé le plus proche. Autorisez l'accès à la localisation ou entrez votre localité.";
+        }
+        if (t.includes("fièvre") || t.includes("paludisme")) {
+          return "Les symptômes de paludisme incluent fièvre, frissons et maux de tête. Si vous avez de la fièvre, consultez un centre de santé rapidement.";
+        }
+        return "Merci pour votre question. Pouvez-vous préciser votre âge, votre région, et depuis quand vous avez ces symptômes ?";
+      }
+    </script>
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      // Transition douce entre les pages
+      document.addEventListener("DOMContentLoaded", function () {
+        document.body.classList.add("page-loaded");
+        AOS.init({
+          duration: 900,
+          once: false,
+          easing: "ease-in-out",
+          mirror: true,
+        });
+      });
+    </script>
+    <!-- Swiper JS -->
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'js/color-modes.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  </body>
+</html>

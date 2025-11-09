@@ -48,6 +48,7 @@ INSTALLED_APPS = [
         'accueil', # page d'accueil
         'chatbot',#page du chatbot
         'conseils', #page des conseils
+        'user', # gestion des utilisateurs
 
 ]
 

@@ -1,37 +1,248 @@
-.bg-gdd {
-  color: #010b27 !important;
+/* ============================================
+   WALLAL SANTÉ - CHARTE GRAPHIQUE
+   ============================================
+   
+   Couleurs principales :
+   - Vert Santé : #2E8B57 (dominant)
+   - Orange Sahel : #F4A261 (accent)
+   - Beige Sable : #FAEBD7 (fond)
+   - Blanc pur : #FFFFFF (texte/croix)
+   
+   ============================================ */
+
+:root {
+  /* Couleurs principales */
+  --vert-sante: #2e8b57;
+  --vert-sante-hover: #246d44;
+  --vert-sante-light: #3ca770;
+  --orange-sahel: #f4a261;
+  --orange-sahel-hover: #e89450;
+  --beige-sable: #faebd7;
+  --blanc-pur: #ffffff;
+
+  /* Couleurs complémentaires */
+  --gris-texte: #333333;
+  --gris-clair: #f8f9fa;
+  --ombre: rgba(46, 139, 87, 0.15);
 }
-/*navbar style*/
+
+/* ============================================
+   BASE & TYPOGRAPHIE
+   ============================================ */
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  color: var(--gris-texte);
+}
 
 body {
+  padding-top: 70px;
   padding-bottom: 20px;
+  background-color: var(--blanc-pur);
 }
 
-.navbar {
-  margin-bottom: 20px;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--vert-sante);
+  font-weight: 600;
 }
-/**/
+
+a {
+  color: var(--vert-sante);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+a:hover {
+  color: var(--vert-sante-hover);
+}
+
+/* ============================================
+   CLASSES UTILITAIRES - CHARTE WALLAL
+   ============================================ */
 
 .bg-gdd {
-  background-color: #286cdb !important;
+  background-color: var(--vert-sante) !important;
 }
 
 .text-gdd {
-  color: #0a53be !important;
-  /*border-bottom: 5px solid white !important;*/
+  color: var(--vert-sante) !important;
 }
 
 .bg-gdd:hover {
-  background-color: #f0f0f0 !important;
-  color: black !important;
+  background-color: var(--vert-sante-hover) !important;
+  color: var(--blanc-pur) !important;
 }
 
-nav .active {
-  color: #0a53be !important;
+.text-vert-sante {
+  color: var(--vert-sante) !important;
 }
+
+.text-orange-sahel {
+  color: var(--orange-sahel) !important;
+}
+
+.bg-vert-sante {
+  background-color: var(--vert-sante) !important;
+  color: var(--blanc-pur) !important;
+}
+
+.bg-orange-sahel {
+  background-color: var(--orange-sahel) !important;
+  color: var(--blanc-pur) !important;
+}
+
+.bg-beige-sable {
+  background-color: var(--beige-sable) !important;
+}
+
+.border-vert-sante {
+  border-color: var(--vert-sante) !important;
+}
+
+.border-orange-sahel {
+  border-color: var(--orange-sahel) !important;
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+
+.navbar {
+  background-color: var(--blanc-pur) !important;
+  box-shadow: 0 2px 10px var(--ombre);
+  padding: 0.5rem 1rem;
+  margin-bottom: 20px;
+}
+
+.navbar-brand {
+  color: var(--vert-sante) !important;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.navbar-brand:hover {
+  color: var(--vert-sante-hover) !important;
+}
+
+/* Animation du brand */
+.brand {
+  animation: blink 1s step-start infinite;
+}
+
+@keyframes blink {
+  50% {
+    border-color: transparent;
+  }
+}
+
+.nav-link {
+  color: var(--gris-texte) !important;
+  font-weight: 500;
+  padding: 0.5rem 1rem !important;
+  margin: 0 0.25rem;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.nav-link:hover {
+  color: var(--vert-sante) !important;
+  background-color: var(--beige-sable);
+}
+
+.nav-link.active,
+nav .active {
+  color: var(--blanc-pur) !important;
+  background-color: var(--vert-sante);
+  font-weight: 600;
+}
+
+.nav-link.active::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 3px;
+  background-color: var(--orange-sahel);
+  border-radius: 2px;
+}
+
+/* ============================================
+   BOUTONS
+   ============================================ */
+
+.btn-primary {
+  background-color: var(--vert-sante);
+  border-color: var(--vert-sante);
+  color: var(--blanc-pur);
+  font-weight: 500;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--vert-sante-hover);
+  border-color: var(--vert-sante-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--ombre);
+}
+
+.btn-outline-primary {
+  color: var(--vert-sante);
+  border-color: var(--vert-sante);
+  background-color: transparent;
+  font-weight: 500;
+  padding: 0.5rem 1.2rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--vert-sante);
+  border-color: var(--vert-sante);
+  color: var(--blanc-pur);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px var(--ombre);
+}
+
+.btn-secondary {
+  background-color: var(--orange-sahel);
+  border-color: var(--orange-sahel);
+  color: var(--blanc-pur);
+  font-weight: 500;
+  padding: 0.6rem 1.5rem;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--orange-sahel-hover);
+  border-color: var(--orange-sahel-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(244, 162, 97, 0.3);
+}
+
+/* ============================================
+   CAROUSEL
+   ============================================ */
 
 .carousel-overlay {
-  background-color: rgba(0, 0, 0, 0.658);
+  background-color: rgba(46, 139, 87, 0.7);
   position: absolute;
   top: 0;
   left: 0;
@@ -46,52 +257,366 @@ nav .active {
 
 .carousel-item img {
   height: 100vh !important;
+  object-fit: cover;
+  object-position: center;
 }
+
+/* ============================================
+   ÉLÉMENTS GRAPHIQUES
+   ============================================ */
 
 .cercle {
   border-radius: 50%;
   width: 140px;
   height: 140px;
-  background-color: #0a53be;
+  background-color: var(--vert-sante);
   overflow: hidden;
   object-fit: contain;
   object-position: center;
+  border: 4px solid var(--orange-sahel);
+  transition: all 0.3s ease;
+}
+
+.cercle:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px var(--ombre);
 }
 
 .barre-verticale {
   width: 10px;
   height: 60px;
-  background-color: #0a53be;
-  /* box-shadow: -3px 0 5px rgba(0, 6, 24, 0.3), -5px 0 8px rgba(0, 6, 24, 0.09); */
+  background-color: var(--vert-sante);
+  box-shadow: -3px 0 5px rgba(46, 139, 87, 0.3),
+    -5px 0 8px rgba(46, 139, 87, 0.1);
+}
+
+/* ============================================
+   ADHÉSION / SECTIONS SPÉCIALES
+   ============================================ */
+
+.adhesion {
+  transition: all 0.3s ease;
 }
 
 .adhesion:hover {
-  color: #0a53be !important;
+  color: var(--vert-sante) !important;
 }
 
 .adhesion:hover a {
-  background-color: #0a53be !important;
-  color: white !important;
-}
-
- {
-  color: #010b27 !important;
-}
-
-.brand {
-  animation: blink 1s step-start infinite;
-}
-
-@keyframes blink {
-  50% {
-    border-color: transparent;
-  }
+  background-color: var(--vert-sante) !important;
+  color: var(--blanc-pur) !important;
 }
 
 .realisation .text-gdd {
   border-bottom: none !important;
 }
 
+/* ============================================
+   SÉLECTEUR DE THÈME
+   ============================================ */
+
+.theme-toggle button {
+  background-color: var(--blanc-pur);
+  border: 2px solid var(--vert-sante);
+  color: var(--vert-sante);
+  box-shadow: 0 4px 12px var(--ombre);
+  transition: all 0.3s ease;
+}
+
+.theme-toggle button:hover {
+  background-color: var(--vert-sante);
+  color: var(--blanc-pur);
+  transform: scale(1.1);
+}
+
+/* ============================================
+   MODE SOMBRE
+   ============================================ */
+
+[data-bs-theme="dark"] {
+  --gris-texte: #e0e0e0;
+  --gris-clair: #1a1a1a;
+}
+
+[data-bs-theme="dark"] body {
+  background-color: #121212;
+  color: var(--gris-texte);
+}
+
+[data-bs-theme="dark"] .navbar {
+  background-color: #1a1a1a !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+[data-bs-theme="dark"] .nav-link {
+  color: var(--gris-texte) !important;
+}
+
+[data-bs-theme="dark"] .nav-link:hover {
+  background-color: rgba(46, 139, 87, 0.2);
+}
+
+[data-bs-theme="dark"] .nav-link.active {
+  background-color: var(--vert-sante);
+  color: var(--blanc-pur) !important;
+}
+
+[data-bs-theme="dark"] h1,
+[data-bs-theme="dark"] h2,
+[data-bs-theme="dark"] h3,
+[data-bs-theme="dark"] h4,
+[data-bs-theme="dark"] h5,
+[data-bs-theme="dark"] h6 {
+  color: var(--vert-sante-light);
+}
+
+[data-bs-theme="dark"] .card {
+  background-color: #1a1a1a;
+  border-color: #333;
+}
+
+[data-bs-theme="dark"] footer {
+  background-color: #1a1a1a;
+  border-top-color: #333;
+}
+
+[data-bs-theme="dark"] .carousel-overlay {
+  background-color: rgba(46, 139, 87, 0.8);
+}
+
+/* ============================================
+   CARTES & SECTIONS
+   ============================================ */
+
+.card {
+  border: 1px solid rgba(46, 139, 87, 0.2);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px var(--ombre);
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px var(--ombre);
+  border-color: var(--vert-sante);
+}
+
+.card-header {
+  background-color: var(--vert-sante);
+  color: var(--blanc-pur);
+  font-weight: 600;
+  border-bottom: 3px solid var(--orange-sahel);
+}
+
+.section-accent {
+  background: linear-gradient(
+    135deg,
+    var(--beige-sable) 0%,
+    var(--blanc-pur) 100%
+  );
+  padding: 4rem 0;
+  position: relative;
+}
+
+.section-accent::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(
+    90deg,
+    var(--vert-sante) 0%,
+    var(--orange-sahel) 100%
+  );
+}
+
+/* ============================================
+   FORMULAIRES
+   ============================================ */
+
+.form-control {
+  border: 2px solid rgba(46, 139, 87, 0.3);
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: var(--vert-sante);
+  box-shadow: 0 0 0 0.2rem rgba(46, 139, 87, 0.25);
+  outline: none;
+}
+
+.form-label {
+  color: var(--vert-sante);
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+footer {
+  background: linear-gradient(
+    180deg,
+    var(--blanc-pur) 0%,
+    var(--beige-sable) 100%
+  );
+  border-top: 3px solid var(--vert-sante);
+  margin-top: 3rem;
+}
+
+footer h5 {
+  color: var(--vert-sante);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+footer .nav-link {
+  color: var(--gris-texte) !important;
+  padding: 0.3rem 0 !important;
+  background-color: transparent !important;
+}
+
+footer .nav-link:hover {
+  color: var(--vert-sante) !important;
+  padding-left: 5px !important;
+  background-color: transparent !important;
+}
+
 footer a:hover {
-  color: #0a53be !important;
+  color: var(--vert-sante) !important;
+}
+
+/* ============================================
+   ALERTES
+   ============================================ */
+
+.alert-success {
+  background-color: rgba(46, 139, 87, 0.1);
+  border-color: var(--vert-sante);
+  color: var(--vert-sante);
+}
+
+.alert-warning {
+  background-color: rgba(244, 162, 97, 0.1);
+  border-color: var(--orange-sahel);
+  color: var(--orange-sahel);
+}
+
+.alert-danger {
+  background-color: rgba(220, 53, 69, 0.1);
+  border-color: #dc3545;
+  color: #dc3545;
+}
+
+/* ============================================
+   BADGES & TAGS
+   ============================================ */
+
+.badge-primary {
+  background-color: var(--vert-sante);
+  color: var(--blanc-pur);
+}
+
+.badge-secondary {
+  background-color: var(--orange-sahel);
+  color: var(--blanc-pur);
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Animation pulse pour éléments importants */
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(46, 139, 87, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(46, 139, 87, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(46, 139, 87, 0);
+  }
+}
+
+.pulse {
+  animation: pulse 2s infinite;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+
+@media (max-width: 768px) {
+  body {
+    padding-top: 60px;
+  }
+
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  .nav-link {
+    padding: 0.5rem 0.75rem !important;
+    margin: 0.25rem 0;
+  }
+
+  .section-accent {
+    padding: 2rem 0;
+  }
+
+  .btn-primary,
+  .btn-outline-primary,
+  .btn-secondary {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .cercle {
+    width: 100px;
+    height: 100px;
+  }
+
+  .carousel-item img {
+    height: 60vh !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .barre-verticale {
+    width: 8px;
+    height: 40px;
+  }
+
+  footer {
+    padding: 2rem 1rem !important;
+  }
+}
+.baniere-principale {
+  min-height: 100vh;
+  background: url("/static/images/baniere.jpg") center center / cover no-repeat;
+  position: relative;
+  overflow: hidden;
+  transition: background-position 0.2s ease-out;
 }

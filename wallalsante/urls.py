@@ -25,6 +25,7 @@ urlpatterns = [
     path('',include('accueil.urls')), # routes de l'app accueil
     path('chatbot',include('chatbot.urls')), # routes de l'app chatbot
     path('',include('conseils.urls')), # routes de l'app conseils
+    path('',include('user.urls')), # routes de l'app user
 ] 
 
 # servir media en dev (audio)

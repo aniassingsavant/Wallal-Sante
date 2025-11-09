@@ -1,10 +1,586 @@
-{% extends "base.html" %}
+{% load static %} {% load i18n %}
 
-{% block title %}
-Accueil
-{% endblock %}
+<!DOCTYPE html>
 
-{% block content %}
-<h1>Bienvenue sur Wallal Santé !</h1>
-<p>À propos</p>
-{% endblock %}
+<html lang="fr" data-bs-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Accueil{% endblock %}</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="shortcut icon"
+      href="{% static 'images/logo.png' %}"
+      type="image/x-icon"
+    />
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/carousel.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/cover.css' %}" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/theme.css' %}" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+    />
+    <style>
+      /* Fix pour enlever les bordures sombres et rendre fullscreen */
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        width: 100%;
+        overflow-x: hidden;
+      }
+
+      body {
+        padding-top: 70px; /* Espace pour navbar fixe */
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Sélecteur de thème simple -->
+    <div
+      class="theme-toggle position-fixed bottom-0 end-0 m-3"
+      style="z-index: 9999"
+    >
+      <button
+        class="btn btn-outline-primary rounded-circle p-2"
+        id="themeToggle"
+        title="Changer de thème"
+        style="width: 50px; height: 50px"
+      >
+        <i class="bi bi-sun-fill" id="themeIcon"></i>
+      </button>
+    </div>
+
+    <header>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
+        <div class="container-fluid">
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarsExample11"
+            aria-controls="navbarsExample11"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse d-lg-flex justify-content-center"
+            id="navbarsExample11"
+          >
+            <div
+              class="navbar-brand d-flex align-items-center col-lg-2 me-0 py-0"
+            >
+              <img
+                class="float-md-start mb-0 rounded-2 md-2"
+                src="{% static 'images/logo.png' %}"
+                width="50"
+                height="50"
+                alt="logo"
+              />
+              <span class="brand-text">
+                <span class="brand-withe">
+                WALLAL 
+                </span>
+                <span class="brand-orange">
+                SANTE
+                </span>
+                </span>
+              <p>&nbsp;&nbsp;</p>
+              <h2 class="h5 brand animate__animated mb-0">
+                &nbsp;
+              </h2>
+            </div>
+
+            <ul
+              class="float-md-end mt-2 gap-4 navbar-nav col-lg-7 justify-content-lg-center"
+            >
+              <li class="nav-item">
+                <a
+                  class="nav-link fw-bold py-1 px-0"
+                  aria-current="page"
+                  href="{% url 'accueil' %}"
+                  >Accueil</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-bold py-1 px-0" href="about"
+                  >À propos</a
+                >
+              </li>
+                <li class="nav-item">
+                <a
+                  class="nav-link fw-bold py-1 px-0"
+                  aria-current="page"
+                  href="{% url 'accueil' %}"
+                  >Conseils</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link fw-bold py-1 px-0" href="">Actualité</a>
+              </li>
+            </ul>
+            
+
+            <div class="d-lg-flex col-lg-3 justify-content-lg-end gap-2">
+              {% if not user.is_authenticated %}
+              <a href="" class="btn btn-outline-primary">S'inscrire</a>
+              <a href="" class="btn btn-outline-primary">Se connecter</a>
+              {% else %}
+              <a href="{% url 'deconnexion' %}" class="btn btn-outline-primary"
+                >Se déconnecter</a
+              >
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    {% block content %}
+    <!-- Votre contenu ici -->
+     <div class="container-fluid p-0 mb-4">
+    <section id="baniere-principale" class="py-5 text-center container">
+      <div class="row py-lg-5">
+        <div class="col-lg-6 col-md-8 mx-auto">
+          <h1 class="animate__animated" id="titreanime">
+            Bienvenue sur Wallal Santé
+          </h1>
+          <p class="lead text-body-secondary">
+            La plateforme du Bien être.
+          </p>
+          <p>
+            <a href="#" class="btn btn-primary my-2">s'inscrire</a>
+            <a href="#" class="btn btn-secondary my-2">Se connecter</a>
+          </p>
+        </div>
+      </div>
+    </section>
+    <section class="container py-5" data-aos="fade-up" id="about">
+      <h1 class="display-4 fw-bold mb-4 text-gdd" data-aos="fade-right">
+        À propos de Wallal Santé
+      </h1>
+      <P>
+       Wallal Santé est une platefforme d’assistance intelligente en santé,
+            conçue pour rapprocher les populations des soins et de la prévention
+            grâce à la technologie et à l’intelligence artificielle. Inspiré du
+            mot “Wallal”, qui signifie “solidarité” et “aide” en fulfulde, notre
+            projet place l’humain au centre de la santé numérique, en combinant
+            savoir local, innovation technologique et inclusion linguistique.
+            Wallal Santé est un compagnon de santé qui écoute, conseille et
+            oriente chaque utilisateur vers des pratiques de vie plus saines et
+            des solutions de prévention adaptées à son environnement.</P>
+      <div class="row mb-5">
+
+        <h2 class=" mb-3 text-dark display-6 fw-bold" data-aos="fade-down">
+      <i class="bi bi-award-fill text-primary me-2"></i>
+      Notre Vision 
+    </h2>
+    <p>
+            La mission de Wallal Santé est de : 
+            <ul>
+              <li>
+                Réduire les inégalités d’accès à l’information et aux services
+                de santé dans les zones rurales et éloignées.
+              </li>
+              <li>
+                Promouvoir la prévention communautaire et l’autonomisation des
+                populations face aux défis sanitaires.
+              </li>
+              <li>Faciliter l’accès à
+            l’information médicale fiable et compréhensible pour tous, dans la
+            langue locale.</li>
+              <li> Accompagner la prévention communautaire, en détectant
+            les tendances de maladies et en conseillant des mesures adaptées à
+            chaque période.</li>
+              <li> Donner à chaque utilisateur le pouvoir d’agir pour
+            sa santé, à travers un chatbot intelligent, un tableau de bord
+            d’analyse des maladies et des recommandations personnalisées.</li>
+              <li>
+                Soutenir les systèmes de santé publique par des données
+                pertinentes et des outils d’analyse innovants.
+              </li>
+            </ul>
+          
+          </p>
+        <div class="col-md-7" data-aos="fade-up" data-aos-delay="100">
+          <h2 class="h3 fw-bold">Notre mission</h2>
+          
+        </div>
+        <div
+          class="col-md-5 d-flex align-items-center justify-content-center"
+          data-aos="zoom-in"
+          data-aos-delay="200"
+        >
+          
+        </div>
+      </div>
+      <div class="row mb-5">
+        <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+  <h2 class="h4 fw-bold">Notre vision</h2>
+  <p>
+    Nous rêvons d’un monde où chaque citoyen, où qu’il soit, peut accéder à des conseils de santé fiables dans sa langue maternelle, 
+    où la prévention devient une habitude et où la technologie sert la vie humaine. 
+    Notre ambition est de faire de Wallal Santé :
+  </p>
+
+  <ul>
+    <li>Un référent africain en santé numérique communautaire.</li>
+    <li>Un pont entre la science, la culture et la technologie.</li>
+    <li>Un outil d’alerte préventive permettant d’anticiper les épidémies locales et de mieux protéger les populations.</li>
+  </ul>
+</div>
+
+        <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+          <h2 class="h4 fw-bold">Nos valeurs</h2>
+          <ul>
+            <li>
+              <strong>Solidarité</strong> : grandir ensemble et s’entraider.
+            </li>
+            <li>
+              <strong>Innovation</strong> : encourager la créativité et
+              l’audace.
+            </li>
+            <li>
+              <strong>Engagement</strong> : agir pour un impact positif et
+              durable.
+            </li>
+            <li>
+              <strong>Ouverture</strong> : accueillir la diversité et favoriser
+              l’inclusion.
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="row mb-5">
+        <div class="col-12" data-aos="fade-up" data-aos-delay="400">
+          <h2 class="h4 fw-bold">Notre équipe</h2>
+          <p>
+            Wallal Santé, c’est une équipe de passionnés, d’experts et de
+            bénévoles engagés pour accompagner les jeunes du Septentrion. Nous
+            croyons en la force du réseau et de l’intelligence collective pour
+            faire émerger des projets ambitieux.
+          </p>
+          <div class="row mt-4">
+            <div
+              class="col-md-4 text-center"
+              data-aos="zoom-in"
+              data-aos-delay="500"
+            >
+              <img
+                src="{% static 'images/logo.png' %}"
+                class="rounded-circle mb-2"
+                width="100"
+                height="100"
+                alt="Mme Pavoshko"
+              />
+              <h5 class="fw-bold">Mme Pavoshko</h5>
+              <p class="text-muted">Fondatrice & Présidente</p>
+            </div>
+            <div
+              class="col-md-4 text-center"
+              data-aos="zoom-in"
+              data-aos-delay="600"
+            >
+              <img
+                src="{% static 'images/logo.png' %}"
+                class="rounded-circle mb-2"
+                width="100"
+                height="100"
+                alt="Mr Hawkings"
+              />
+              <h5 class="fw-bold">Mr Hawkings</h5>
+              <p class="text-muted">Co-fondateur & Responsable projets</p>
+            </div>
+            <div
+              class="col-md-4 text-center"
+              data-aos="zoom-in"
+              data-aos-delay="700"
+            >
+              <img
+                src="{% static 'images/logo.jpg' %}"
+                class="rounded-circle mb-2"
+                width="100"
+                height="100"
+                alt="Mme Pearson"
+              />
+              <h5 class="fw-bold">Mme Pearson</h5>
+              <p class="text-muted">Chargée de communication</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-5">
+        <div class="col-12" data-aos="fade-up" data-aos-delay="800">
+          <h2 class="h4 fw-bold">Nous rejoindre</h2>
+          <p>
+            Vous partagez nos valeurs et souhaitez contribuer à l’aventure ?
+            <a href="{}" class="text-gdd fw-bold"
+              >Adhérez dès maintenant</a
+            >
+            ou contactez-nous pour en savoir plus sur nos actions et nos
+            événements.
+          </p>
+        </div>
+      </div>
+    </section>
+    {% endblock %}
+
+    <footer class="py-5 px-3 px-lg-5">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-6 col-md-2 mb-3">
+            <h5>Lien Rapide</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2">
+                <a
+                  href="{% url 'accueil' %}"
+                  class="nav-link p-0 text-body-secondary"
+                  >Accueil</a
+                >
+              </li>
+              <li class="nav-item mb-2">
+                <a
+                  href="{% url 'about' %}"
+                  class="nav-link p-0 text-body-secondary"
+                  >A propos</a
+                >
+              </li>
+              <li class="nav-item mb-2">
+                <a href="" class="nav-link p-0 text-body-secondary"
+                  >Actualité</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-6 col-md-2 mb-3">
+            <h5>Section</h5>
+            <ul class="nav flex-column">
+              <li class="nav-item mb-2">
+                <a href="#" class="nav-link p-0 text-body-secondary">Home</a>
+              </li>
+              <li class="nav-item mb-2">
+                <a href="#" class="nav-link p-0 text-body-secondary">About</a>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-md-5 offset-md-1 mb-3">
+            <form id="newsletter-form" method="post" action="">
+              {% csrf_token %}
+              <h5>Souscrire à notre newsletter</h5>
+              <p>Monthly digest of what's new and exciting from us.</p>
+              <div class="d-flex flex-column flex-sm-row w-100 gap-2">
+                <label for="newsletter1" class="visually-hidden"
+                  >Email address</label
+                >
+                <input
+                  id="newsletter1"
+                  name="email"
+                  type="email"
+                  class="form-control"
+                  placeholder="Email address"
+                  required
+                />
+                <button class="btn btn-primary" type="submit">Subscribe</button>
+              </div>
+            </form>
+            <div id="newsletter-message" class="mt-2"></div>
+          </div>
+        </div>
+
+        <div
+          class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top"
+        >
+          <p>&copy; 2025 Wallal Santé. Tous droits réservés.</p>
+          <ul class="list-unstyled d-flex">
+            <li class="ms-3">
+              <a class="link-body-emphasis" href="#" aria-label="linkedin">
+                <img
+                  src="{% static 'images/svg/linkedin.svg' %}"
+                  alt="linkedin"
+                  width="24"
+                  height="24"
+                />
+              </a>
+            </li>
+            <li class="ms-3">
+              <a class="link-body-emphasis" href="#" aria-label="Instagram">
+                <img
+                  src="{% static 'images/svg/instagram.svg' %}"
+                  alt="Instagram"
+                  width="24"
+                  height="24"
+                />
+              </a>
+            </li>
+            <li class="ms-3">
+              <a class="link-body-emphasis" href="#" aria-label="Facebook">
+                <img
+                  src="{% static 'images/svg/facebook.svg' %}"
+                  alt="facebook"
+                  width="24"
+                  height="24"
+                />
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+</div>
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+      // Animation du titre navbar
+      document.addEventListener("DOMContentLoaded", function () {
+        const brand = document.getElementById("titreanime");
+        const words = [
+          "A jaaraama e Wallal Santé",
+          "Bienvenue sur Wallal Santé",
+          "<i style='font-size: smaller; font-style: italic;'>La santé, à portée de tous</i>",
+        ];
+        let wordIndex = 0;
+        let loopCount = 0;
+        const maxLoops = 3;
+
+        function showWordFade() {
+          brand.classList.remove("animate__fadeIn");
+          void brand.offsetWidth;
+          // ⚠️ innerHTML pour interpréter les balises HTML
+          brand.innerHTML = words[wordIndex];
+          brand.classList.add("animate__fadeIn");
+          wordIndex++;
+          if (wordIndex >= words.length) {
+            wordIndex = 0;
+            loopCount++;
+          }
+          if (loopCount < maxLoops) {
+            setTimeout(showWordFade, 2000);
+          } else {
+            brand.textContent = "Bienvenue sur Wallal Santé";
+          }
+        }
+        showWordFade();
+      });
+    </script>
+
+    <script>
+      // Navigation active
+      document.addEventListener("DOMContentLoaded", function () {
+        const links = document.querySelectorAll(".nav-link");
+        const path = window.location.pathname;
+
+        links.forEach((link) => {
+          if (link.getAttribute("href") === path) {
+            link.classList.add("active");
+          } else {
+            link.classList.remove("active");
+          }
+        });
+      });
+    </script>
+
+    <script>
+      // Newsletter form
+      document.addEventListener("DOMContentLoaded", function () {
+        const form = document.getElementById("newsletter-form");
+        const messageDiv = document.getElementById("newsletter-message");
+
+        if (form) {
+          form.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const formData = new FormData(form);
+            fetch(form.action, {
+              method: "POST",
+              headers: {
+                "X-Requested-With": "XMLHttpRequest",
+                "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+              },
+              body: formData,
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                messageDiv.innerHTML = `<div class="alert ${
+                  data.success ? "alert-success" : "alert-warning"
+                } alert-dismissible fade show" role="alert">${
+                  data.message
+                }<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button></div>`;
+                if (data.success) form.reset();
+              })
+              .catch(() => {
+                messageDiv.innerHTML =
+                  '<div class="alert alert-danger alert-dismissible fade show" role="alert">Erreur lors de l\'inscription. Veuillez réessayer.<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button></div>';
+              });
+          });
+        }
+      });
+    </script>
+
+    <script>
+      // Sélecteur de thème simple
+      const themeToggle = document.getElementById("themeToggle");
+      const themeIcon = document.getElementById("themeIcon");
+      const html = document.documentElement;
+
+      // Récupérer le thème sauvegardé
+      const savedTheme = localStorage.getItem("theme") || "light";
+      html.setAttribute("data-bs-theme", savedTheme);
+      updateIcon(savedTheme);
+
+      // Changer de thème au clic
+      themeToggle.addEventListener("click", () => {
+        const currentTheme = html.getAttribute("data-bs-theme");
+        const newTheme = currentTheme === "light" ? "dark" : "light";
+
+        html.setAttribute("data-bs-theme", newTheme);
+        localStorage.setItem("theme", newTheme);
+        updateIcon(newTheme);
+      });
+
+      // Mettre à jour l'icône
+      function updateIcon(theme) {
+        if (theme === "dark") {
+          themeIcon.className = "bi bi-moon-stars-fill";
+        } else {
+          themeIcon.className = "bi bi-sun-fill";
+        }
+      }
+    </script>
+
+    <script>
+      // AOS Animation
+      document.addEventListener("DOMContentLoaded", function () {
+        document.body.classList.add("page-loaded");
+        AOS.init({
+          duration: 900,
+          once: false,
+          easing: "ease-in-out",
+          mirror: true,
+        });
+      });
+    </script>
+  </body>
+</html>
