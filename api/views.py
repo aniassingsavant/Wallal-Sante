@@ -5,6 +5,7 @@ from django.conf import settings
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
+from django.contrib.auth.decorators import login_required
 import google.generativeai as genai
 from gtts import gTTS
 
@@ -180,3 +181,31 @@ def translate(request):
         return Response({"translated": translated})
     except Exception as e:  
         return Response({"error": str(e)}, status=500)
+
+@login_required
+def user_notifications(request):
+    notifications = Notification.objects.filter(user=request.user)
+    return JsonResponse({
+        'notifications': [
+            {
+                'id': n.id,
+                'type': n.type,
+                'title': n.title_fulfulde,
+                'message': n.message_fulfulde,
+                'url': n.related_url,
+                'is_read': n.is_read,
+                'created_at': n.created_at,
+                'status': success
+            }
+            for n in notifications
+        ]
+    })
+
+@login_required
+def notification_settings(request):
+    if request.method == 'POST':
+        settings, created = NotificationSettings.objects.get_or_create(user=request.user)
+        settings.vaccine_reminders = request.POST.get('vaccine_reminders') == 'true'
+        settings.campaign_alerts = request.POST.get('campaign_alerts') == 'true'
+        settings.save()
+        return JsonResponse({'status': 'success'})

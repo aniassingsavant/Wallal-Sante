@@ -23,8 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),  # routes de l'app api
     path('',include('accueil.urls')), # routes de l'app accueil
-    path('',include('chatbot.urls')), # routes de l'app chatbot
-    path('',include('conseils.urls')), # routes de l'app conseils
+    path('chatbot/',include('chatbot.urls')), # routes de l'app chatbot
+    path('conseils/',include('conseils.urls')), # routes de l'app conseils
 ] 
 
 # servir media en dev (audio)
