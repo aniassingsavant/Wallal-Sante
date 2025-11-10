@@ -54,10 +54,9 @@ h3,
 h4,
 h5,
 h6 {
-  color: var(--vert-sante);
+  color: #006400;
   font-weight: 600;
 }
-
 a {
   color: var(--vert-sante);
   text-decoration: none;
@@ -73,7 +72,7 @@ a:hover {
    ============================================ */
 
 .bg-gdd {
-  background-color: var(--vert-sante) !important;
+  background-color: #006400;!important;
 }
 
 .text-gdd {
@@ -613,10 +612,16 @@ footer a:hover {
     padding: 2rem 1rem !important;
   }
 }
-.baniere-principale {
-  min-height: 100vh;
-  background: url("/static/images/baniere.jpg") center center / cover no-repeat;
+
+.hero-banner {
+  background: url("{% static 'images/hero-bg.jpg' %}") center center/cover
+    no-repeat;
   position: relative;
-  overflow: hidden;
-  transition: background-position 0.2s ease-out;
+}
+
+.hero-banner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4); /* assombrit pour lisibilité du texte */
 }

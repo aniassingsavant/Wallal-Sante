@@ -104,10 +104,8 @@
                 SANTE
                 </span>
                 </span>
-              <p>&nbsp;&nbsp;</p>
-              <h2 class="h5 brand animate__animated mb-0">
-                &nbsp;
-              </h2>
+              
+              
             </div>
 
             <ul
@@ -121,19 +119,17 @@
                   >Accueil</a
                 >
               </li>
-              <li class="nav-item">
-                <a class="nav-link fw-bold py-1 px-0" href="about"
-                  >À propos</a
-                >
-              </li>
-                <li class="nav-item">
-                <a
-                  class="nav-link fw-bold py-1 px-0"
-                  aria-current="page"
-                  href="{% url 'accueil' %}"
+               <li class="nav-item">
+                <a class="nav-link fw-bold py-1 px-0" href=""
                   >Conseils</a
                 >
               </li>
+              <li class="nav-item">
+                <a class="nav-link fw-bold py-1 px-0" href="#about"
+                  >À propos</a
+                >
+              </li>
+              
               <li class="nav-item">
                 <a class="nav-link fw-bold py-1 px-0" href="">Actualité</a>
               </li>
@@ -142,8 +138,8 @@
 
             <div class="d-lg-flex col-lg-3 justify-content-lg-end gap-2">
               {% if not user.is_authenticated %}
-              <a href="" class="btn btn-outline-primary">S'inscrire</a>
-              <a href="" class="btn btn-outline-primary">Se connecter</a>
+              <a href="{%url 'inscription'%}" class="btn btn-outline-primary">S'inscrire</a>
+              <a href="{%url 'connexion'%}" class="btn btn-outline-primary">Se connecter</a>
               {% else %}
               <a href="{% url 'deconnexion' %}" class="btn btn-outline-primary"
                 >Se déconnecter</a
@@ -158,21 +154,28 @@
     {% block content %}
     <!-- Votre contenu ici -->
      <div class="container-fluid p-0 mb-4">
-    <section id="baniere-principale" class="py-5 text-center container">
-      <div class="row py-lg-5">
-        <div class="col-lg-6 col-md-8 mx-auto">
-          <h1 class="animate__animated" id="titreanime">
-            Bienvenue sur Wallal Santé
-          </h1>
-          <p class="lead text-body-secondary">
-            La plateforme du Bien être.
-          </p>
-          <p>
-            <a href="#" class="btn btn-primary my-2">s'inscrire</a>
-            <a href="#" class="btn btn-secondary my-2">Se connecter</a>
-          </p>
-        </div>
-      </div>
+      <div class="owl-carousel header-carousel position-relative" aria-label="Carrousel principal">
+<section
+  id="baniere-principale"
+  class="hero-banner d-flex flex-column align-items-center justify-content-center text-center position-relative vh-100"
+  style="background: url('{% static 'images/baniere.jpg' %}') center/cover no-repeat; color: white;"
+>
+  <div class="container-fluid px-4">
+    <h1 class="animate__animated" id="titreanime" style="color: white;">
+      Bienvenue sur Wallal Santé
+    </h1>
+    <p class="lead fs-4" style="color: white;">
+      La plateforme du Bien être.
+    </p>
+    <p>
+      <a href="{% url 'connexion' %}" class="btn btn-primary my-2 px-4">S'inscrire</a>
+      <a href="{% url 'connexion' %}" class="btn btn-secondary my-2 px-4">Se connecter</a>
+    </p>
+  </div>
+</section>
+
+
+
     </section>
     <section class="container py-5" data-aos="fade-up" id="about">
       <h1 class="display-4 fw-bold mb-4 text-gdd" data-aos="fade-right">
@@ -180,7 +183,7 @@
       </h1>
       <P>
        Wallal Santé est une platefforme d’assistance intelligente en santé,
-            conçue pour rapprocher les populations des soins et de la prévention
+          conçue pour rapprocher les populations des soins et de la prévention
             grâce à la technologie et à l’intelligence artificielle. Inspiré du
             mot “Wallal”, qui signifie “solidarité” et “aide” en fulfulde, notre
             projet place l’humain au centre de la santé numérique, en combinant
@@ -191,10 +194,10 @@
       <div class="row mb-5">
 
         <h2 class=" mb-3 text-dark display-6 fw-bold" data-aos="fade-down">
-      <i class="bi bi-award-fill text-primary me-2"></i>
-      Notre Vision 
+      
+      Notre Mission 
     </h2>
-    <p>
+ 
             La mission de Wallal Santé est de : 
             <ul>
               <li>
@@ -220,20 +223,8 @@
               </li>
             </ul>
           
-          </p>
-        <div class="col-md-7" data-aos="fade-up" data-aos-delay="100">
-          <h2 class="h3 fw-bold">Notre mission</h2>
-          
-        </div>
-        <div
-          class="col-md-5 d-flex align-items-center justify-content-center"
-          data-aos="zoom-in"
-          data-aos-delay="200"
-        >
-          
-        </div>
-      </div>
-      <div class="row mb-5">
+         
+        
         <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
   <h2 class="h4 fw-bold">Notre vision</h2>
   <p>
@@ -253,31 +244,29 @@
           <h2 class="h4 fw-bold">Nos valeurs</h2>
           <ul>
             <li>
-              <strong>Solidarité</strong> : grandir ensemble et s’entraider.
+              <strong>Inclusion</strong> : aucune barrière linguistique ni géographique à la santé.
             </li>
             <li>
-              <strong>Innovation</strong> : encourager la créativité et
-              l’audace.
+              <strong>Proximité</strong> : aucune barrière linguistique ni géographique à la santé.
             </li>
             <li>
-              <strong>Engagement</strong> : agir pour un impact positif et
-              durable.
-            </li>
-            <li>
-              <strong>Ouverture</strong> : accueillir la diversité et favoriser
-              l’inclusion.
-            </li>
+              <strong>Innovation</strong> : exploiter la puissance de l’IA pour améliorer la vie.
+              </li>
+             <li>
+              <strong>Responsabilité</strong> : protéger les données et agir pour le bien-être collectif.
+              </li>
+              <li>
+<strong>Solidarité</strong> : “Wallal” est avant tout un engagement envers la communauté.
+              </li>
+          
           </ul>
         </div>
-      </div>
+      
       <div class="row mb-5">
         <div class="col-12" data-aos="fade-up" data-aos-delay="400">
           <h2 class="h4 fw-bold">Notre équipe</h2>
           <p>
-            Wallal Santé, c’est une équipe de passionnés, d’experts et de
-            bénévoles engagés pour accompagner les jeunes du Septentrion. Nous
-            croyons en la force du réseau et de l’intelligence collective pour
-            faire émerger des projets ambitieux.
+            L’équipe Wallal Santé est composée de jeunes professionnels passionnés par la santé, la technologie et l’impact social. Elle réunit des médecins, ingénieurs, data scientists, développeurs et spécialistes en communication communautaire, unis par une même ambition : rendre la santé accessible, intelligente et préventive pour tous. Grâce à leur complémentarité, l’équipe conçoit des solutions technologiques adaptées aux réalités locales, en intégrant la langue fulfulde et les pratiques culturelles communautaires pour renforcer la compréhension et la confiance. Engagée sur le terrain comme dans la recherche, l’équipe Wallal Santé s’appuie sur la science, l’intelligence artificielle et la proximité humaine pour bâtir un écosystème de santé durable et inclusif en Afrique.
           </p>
           <div class="row mt-4">
             <div
@@ -359,7 +348,7 @@
               </li>
               <li class="nav-item mb-2">
                 <a
-                  href="{% url 'about' %}"
+                  href="#about"
                   class="nav-link p-0 text-body-secondary"
                   >A propos</a
                 >
