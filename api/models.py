@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class UserManager(BaseUserManager):
     def create_user(self, email, username=None, password=None, **extra_fields):
@@ -29,3 +31,60 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
+class Profile(models.Model):
+    # Liaison vers votre modèle User personnalisé ci-dessus
+    user = models.OneToOneField(User, on_delete=models.CASCADE) 
+    
+    # --- Champs Personnels ---
+    age = models.IntegerField(null=True, blank=True)
+    
+    SEX_CHOICES = [
+        ('MALE', 'Homme'),
+        ('FEMALE', 'Femme'),
+        ('OTHER', 'Autre'),
+    ]
+    sex = models.CharField(max_length=10, choices=SEX_CHOICES, null=True, blank=True)
+    
+    PREGNANCY_CHOICES = [
+        ('YES', 'Oui'),
+        ('NO', 'Non'),
+        ('UNKNOWN', 'Ne se prononce pas'),
+    ]
+    is_pregnant = models.CharField(
+        max_length=10, 
+        choices=PREGNANCY_CHOICES, 
+        default='UNKNOWN', 
+        null=True, blank=True
+    )
+    
+    # --- Historique Médical ---
+    chronic_illness = models.TextField(
+        blank=True, null=True, 
+        help_text="Maladies chroniques connues, ex: Diabète, Hypertension, Asthme"
+    )
+    medical_history = models.TextField(
+        blank=True, null=True, 
+        help_text="Antécédents médicaux pertinents, ex: Allergie pénicilline, opération du cœur"
+    )
+
+    def __str__(self):
+        return f'{self.user.email} Profile'
+
+# --- SIGNALS pour la Création Automatique ---
+
+# Crée automatiquement un profil lorsque l'utilisateur est enregistré
+@receiver(post_save, sender=User)
+def create_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+
+# S'assure que le profil est sauvegardé quand l'utilisateur est mis à jour
+@receiver(post_save, sender=User)
+def save_user_profile(sender, instance, **kwargs):
+    # Vérifie si le profil existe avant d'essayer de le sauvegarder
+    if hasattr(instance, 'profile'):
+        instance.profile.save()
+    else:
+        # Si le signal est déclenché par une mise à jour d'un utilisateur sans profil, on le crée
+        Profile.objects.create(user=instance)

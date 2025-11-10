@@ -1,8 +1,8 @@
-
 import os
 import uuid
 import requests # Pour faire des requêtes HTTP à l'Overpass API
 import logging
+from .serializers import ProfileSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from geopy.distance import geodesic # Pour calculer les distances si nécessaire
 from django.conf import settings
@@ -139,10 +139,10 @@ def analyse(request):
         ai_text = generate_ai(prompt)
 
         # si langue demandée est fulfulde ('ff'), demander la traduction à Gemini
-        translated_text = ai_text
-        if lang == 'ff':
-            translate_prompt = f"Traduis en Fulfulde (dialecte Adamawa, Cameroun) : {ai_text}"
-            translated_text = generate_ai(translate_prompt)
+        #translated_text = ai_text
+        #if lang == 'ff':
+            #translate_prompt = f"Traduis en Fulfulde (dialecte Adamawa, Cameroun) : {ai_text}"
+            #translated_text = generate_ai(translate_prompt)
 
         # générer audio et retourner URL
         filename = save_tts_to_file(ai_text, lang=lang)
@@ -150,7 +150,7 @@ def analyse(request):
 
         return Response({  
             "original_text": ai_text,  
-            "translated_text": translated_text,  
+            #"translated_text": translated_text,  
             "audio_url": audio_url  
         }) 
         response = requests.post("http://api.externe.com/analyse", ...)
@@ -260,3 +260,35 @@ def find_hospitals_osm(request):
         return Response({"error": f"Erreur de connexion à l'API OpenStreetMap: {e}"}, status=503)
     except Exception as e:
         return Response({"error": str(e)}, status=500)
+
+@api_view(['GET', 'POST'])
+@permission_classes([IsAuthenticated])
+def user_profile(request):
+    """
+    Vue pour récupérer ou mettre à jour le profil de l'utilisateur connecté.
+    GET: Retourne les données de profil.
+    POST: Met à jour les données de profil.
+    """
+    try:
+        profile = request.user.profile
+    except Profile.DoesNotExist:
+        # Cas de sécurité si le signal a échoué (rare), on crée le profil
+        profile = Profile.objects.create(user=request.user)
+
+    if request.method == 'GET':
+        # Lire le profil
+        serializer = ProfileSerializer(profile)
+        return Response(serializer.data)
+
+    elif request.method == 'POST':
+        # Mettre à jour le profil avec les données envoyées par Flutter
+        # Le deuxième argument 'profile' est l'instance à modifier
+        serializer = ProfileSerializer(profile, data=request.data)
+        
+        if serializer.is_valid():
+            serializer.save()
+            # Retourne les données mises à jour
+            return Response(serializer.data, status=200)
+        
+        # Erreur de validation (ex: l'âge n'est pas un nombre)
+        return Response(serializer.errors, status=400)
