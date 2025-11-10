@@ -1,10 +1,433 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-    <title>Conseils - Wallal Santé</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conseils Santé - Médecins Traditionnels</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 0;
+            margin-bottom: 40px;
+        }
+        .doctor-card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            margin-bottom: 25px;
+        }
+        .doctor-card:hover {
+            transform: translateY(-5px);
+        }
+        .specialty-badge {
+            background: #667eea;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+        }
+        .rating {
+            color: #ffc107;
+        }
+        .search-box {
+            background: white;
+            border-radius: 50px;
+            padding: 15px 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .problem-category {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .problem-category:hover {
+            background: #e9ecef;
+            transform: translateX(5px);
+        }
+        .contact-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 25px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Page Conseils - Wallal Santé</h1>
-    <p>Cette page sera développée ultérieurement.</p>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-leaf me-2"></i>
+                Santé Traditionnelle
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/accueil">Accueil</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/conseils">Conseils</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profil">Mon Profil</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Section Hero -->
+    <section class="hero-section text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold mb-4">
+                <i class="fas fa-hand-holding-heart me-3"></i>
+                Conseils Santé & Médecins Traditionnels
+            </h1>
+            <p class="lead mb-4">
+                Trouvez des praticiens traditionnels réputés près de chez vous pour vos problèmes de santé
+            </p>
+            
+            <!-- Barre de recherche -->
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="search-box">
+                        <div class="input-group">
+                            <input type="text" class="form-control border-0" placeholder="Rechercher un problème, un remède, un médecin..." id="searchInput">
+                            <button class="btn btn-primary" type="button" id="searchBtn">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contenu principal -->
+    <div class="container">
+        <!-- Catégories de problèmes -->
+        <div class="row mb-5">
+            <div class="col-12">
+                <h2 class="mb-4">
+                    <i class="fas fa-stethoscope me-2"></i>
+                    Par type de problème
+                </h2>
+                <div class="row">
+                    <div class="col-md-3" onclick="filterDoctors('digestif')">
+                        <div class="problem-category text-center">
+                            <i class="fas fa-stomach fa-3x mb-3 text-primary"></i>
+                            <h5>Problèmes Digestifs</h5>
+                            <small>Maux d'estomac, diarrhée, constipation</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3" onclick="filterDoctors('respiratoire')">
+                        <div class="problem-category text-center">
+                            <i class="fas fa-lungs fa-3x mb-3 text-success"></i>
+                            <h5>Problèmes Respiratoires</h5>
+                            <small>Toux, asthme, bronchite</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3" onclick="filterDoctors('dermatologique')">
+                        <div class="problem-category text-center">
+                            <i class="fas fa-allergies fa-3x mb-3 text-warning"></i>
+                            <h5>Problèmes de Peau</h5>
+                            <small>Eczéma, acné, allergies</small>
+                        </div>
+                    </div>
+                    <div class="col-md-3" onclick="filterDoctors('douleurs')">
+                        <div class="problem-category text-center">
+                            <i class="fas fa-bone fa-3x mb-3 text-danger"></i>
+                            <h5>Douleurs Corporelles</h5>
+                            <small>Arthrite, maux de dos, migraines</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Médecins traditionnels -->
+        <div class="row">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h2>
+                        <i class="fas fa-user-md me-2"></i>
+                        Médecins Traditionnels Réputés
+                    </h2>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                            Trier par: Recommandations
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#" onclick="sortDoctors('rating')">Note élevée</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="sortDoctors('proximity')">Proximité</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="sortDoctors('experience')">Expérience</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Liste des médecins -->
+                <div id="doctorsList">
+                    <!-- Les cartes de médecins seront générées ici par JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de contact -->
+    <div class="modal fade" id="contactModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="doctorModalName">Contacter le médecin</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="contactInfo">
+                        <!-- Les informations de contact seront injectées ici -->
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-primary" onclick="initiateCall()">
+                        <i class="fas fa-phone me-2"></i>Appeler
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Données des médecins traditionnels
+        const traditionalDoctors = [
+            {
+                id: 1,
+                name: "Dr. Ahmadou Issa",
+                specialty: "digestif",
+                specialties: ["Problèmes digestifs", "Médecine des plantes"],
+                experience: 25,
+                rating: 4.8,
+                location: "Pitoare",
+                distance: "2.5 km",
+                phone: "+237 676 45 32 10",
+                description: "Spécialiste des traitements traditionnels pour les troubles digestifs. Utilise des plantes médicinales locales.",
+                price: "5,000 - 15,000 FCFA",
+                availability: "Lun-Ven: 8h-18h",
+                image: "👨🏾‍⚕️"
+            },
+            {
+                id: 2,
+                name: "Mariama Sanda",
+                specialty: "respiratoire",
+                specialties: ["Affections respiratoires", "Tisanes médicinales"],
+                experience: 15,
+                rating: 4.6,
+                location: "Doualare",
+                distance: "15 km",
+                phone: "+237 655 78 90 12",
+                description: "Experte en traitement des problèmes respiratoires avec des méthodes traditionnelles éprouvées.",
+                price: "3,000 - 10,000 FCFA",
+                availability: "Mar-Sam: 9h-17h",
+                image: "👩🏾‍⚕️"
+            },
+            {
+                id: 3,
+                name: "Abdoulaziz Souaibou",
+                specialty: "dermatologique",
+                specialties: ["Problèmes de peau", "Onguents naturels"],
+                experience: 30,
+                rating: 4.9,
+                location: "Sekande",
+                distance: "25 km",
+                phone: "+237 670 12 34 56",
+                description: "Maître dans le traitement des affections cutanées avec des remèdes ancestraux.",
+                price: "7,000 - 20,000 FCFA",
+                availability: "Lun-Ven: 7h-20h",
+                image: "🧔🏾‍♂️"
+            },
+            {
+                id: 4,
+                name: "Djamilla Adamou",
+                specialty: "douleurs",
+                specialties: ["Douleurs articulaires", "Massages thérapeutiques"],
+                experience: 20,
+                rating: 4.7,
+                location: "Doursoungol",
+                distance: "3.2 km",
+                phone: "+237 656 54 32 10",
+                description: "Spécialiste du soulagement des douleurs par des techniques de massage traditionnel.",
+                price: "8,000 - 25,000 FCFA",
+                availability: "Mer-Dim: 8h-19h",
+                image: "👩🏾‍🌾"
+            }
+        ];
+
+        // Fonction pour afficher les médecins
+        function displayDoctors(doctors = traditionalDoctors) {
+            const doctorsList = document.getElementById('doctorsList');
+            doctorsList.innerHTML = '';
+
+            doctors.forEach(doctor => {
+                const stars = '★'.repeat(Math.floor(doctor.rating)) + '☆'.repeat(5 - Math.floor(doctor.rating));
+                
+                const doctorCard = `
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card doctor-card">
+                            <div class="card-body">
+                                <div class="d-flex align-items-center mb-3">
+                                    <div class="me-3" style="font-size: 2.5rem;">${doctor.image}</div>
+                                    <div>
+                                        <h5 class="card-title mb-1">${doctor.name}</h5>
+                                        <div class="rating mb-1">${stars} <small>${doctor.rating}</small></div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-2">
+                                    ${doctor.specialties.map(spec => `<span class="specialty-badge me-1">${spec}</span>`).join('')}
+                                </div>
+                                
+                                <p class="card-text text-muted small">${doctor.description}</p>
+                                
+                                <div class="doctor-info mb-3">
+                                    <div class="row text-center">
+                                        <div class="col-4">
+                                            <small class="text-muted">Expérience</small>
+                                            <div class="fw-bold">${doctor.expérience} ans</div>
+                                        </div>
+                                        <div class="col-4">
+                                            <small class="text-muted">Distance</small>
+                                            <div class="fw-bold">${doctor.distance}</div>
+                                        </div>
+                                        <div class="col-4">
+                                            <small class="text-muted">Prix</small>
+                                            <div class="fw-bold">${doctor.price}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-grid gap-2">
+                                    <button class="btn contact-btn" onclick="showContactModal(${doctor.id})">
+                                        <i class="fas fa-phone me-2"></i>Contacter
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                doctorsList.innerHTML += doctorCard;
+            });
+        }
+
+        // Filtrer par spécialité
+        function filterDoctors(specialty) {
+            const filtered = specialty === 'all' 
+                ? traditionalDoctors 
+                : traditionalDoctors.filter(doctor => doctor.specialty === specialty);
+            displayDoctors(filtered);
+        }
+
+        // Trier les médecins
+        function sortDoctors(criteria) {
+            const sorted = [...traditionalDoctors].sort((a, b) => {
+                switch(criteria) {
+                    case 'rating': return b.rating - a.rating;
+                    case 'experience': return b.experience - a.experience;
+                    case 'proximity': return parseFloat(a.distance) - parseFloat(b.distance);
+                    default: return 0;
+                }
+            });
+            displayDoctors(sorted);
+        }
+
+        // Afficher modal de contact
+        function showContactModal(doctorId) {
+            const doctor = traditionalDoctors.find(d => d.id === doctorId);
+            document.getElementById('doctorModalName').textContent = `Contacter ${doctor.name}`;
+            
+            document.getElementById('contactInfo').innerHTML = `
+                <div class="text-center mb-4">
+                    <div style="font-size: 3rem;">${doctor.image}</div>
+                    <h4>${doctor.name}</h4>
+                    <p class="text-muted">${doctor.specialties.join(' • ')}</p>
+                </div>
+                
+                <div class="contact-details">
+                    <div class="mb-3">
+                        <strong><i class="fas fa-phone me-2 text-primary"></i>Téléphone:</strong>
+                        <div class="ms-4">${doctor.phone}</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <strong><i class="fas fa-map-marker-alt me-2 text-danger"></i>Localisation:</strong>
+                        <div class="ms-4">${doctor.location} (${doctor.distance})</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <strong><i class="fas fa-clock me-2 text-success"></i>Disponibilité:</strong>
+                        <div class="ms-4">${doctor.availability}</div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <strong><i class="fas fa-money-bill-wave me-2 text-success"></i>Tarifs:</strong>
+                        <div class="ms-4">${doctor.price}</div>
+                    </div>
+                    
+                    <div class="alert alert-info mt-3">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Conseil:</strong> Préparez une description claire de vos symptômes avant d'appeler.
+                    </div>
+                </div>
+            `;
+            
+            new bootstrap.Modal(document.getElementById('contactModal')).show();
+        }
+
+        // Initier un appel
+        function initiateCall() {
+            const phone = traditionalDoctors.find(d => 
+                d.name === document.getElementById('doctorModalName').textContent.replace('Contacter ', '')
+            ).phone;
+            
+            if(confirm(`Voulez-vous appeler ${phone} ?`)) {
+                window.location.href = `tel:${phone}`;
+            }
+        }
+
+        // Recherche
+        document.getElementById('searchBtn').addEventListener('click', performSearch);
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if(e.key === 'Enter') performSearch();
+        });
+
+        function performSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = traditionalDoctors.filter(doctor => 
+                doctor.name.toLowerCase().includes(query) ||
+                doctor.specialties.some(spec => spec.toLowerCase().includes(query)) ||
+                doctor.description.toLowerCase().includes(query)
+            );
+            displayDoctors(filtered);
+        }
+
+        // Initialisation
+        document.addEventListener('DOMContentLoaded', function() {
+            displayDoctors();
+        });
+    </script>
 </body>
 </html>

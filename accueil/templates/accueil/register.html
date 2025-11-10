@@ -12,6 +12,7 @@
                     <h1 class="h2 mb-0 text-center">
                         <i class="fas fa-user-plus me-2"></i>Créer votre compte santé
                     </h1>
+                    <p class="text-center mb-0 mt-2">Questionnaire adaptatif pour personnaliser votre expérience</p>
                 </div>
                 <div class="card-body p-5">
                     <form method="post" id="registrationForm">
@@ -110,7 +111,218 @@
                             </div>
                         </div>
 
-                        <!-- Continuer avec les autres étapes... -->
+                        <!-- Étape 3: Santé et maladies -->
+                        <div class="registration-section d-none" id="section-health">
+                            <h3 class="text-success mb-4">🏥 Santé et maladies</h3>
+                            
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">6. Avez-vous des maladies chroniques ou récurrentes ?</label>
+                                <div class="health-checkboxes">
+                                    {% for value, label in disease_choices %}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="chronic_diseases" value="{{ value }}" id="disease_{{ value }}">
+                                        <label class="form-check-label" for="disease_{{ value }}">
+                                            {{ label }}
+                                        </label>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Si "Autre", précisez :</label>
+                                <input type="text" name="other_disease" class="form-control" placeholder="Autre maladie...">
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">7. Avez-vous des allergies ?</label>
+                                    <select name="has_allergies" class="form-control allergy-toggle">
+                                        <option value="false">Non</option>
+                                        <option value="true">Oui</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Si oui, précisez :</label>
+                                    <input type="text" name="allergies_details" class="form-control" placeholder="Allergies aux médicaments, aliments...">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Prenez-vous des médicaments régulièrement ?</label>
+                                    <select name="regular_medication" class="form-control medication-toggle">
+                                        <option value="false">Non</option>
+                                        <option value="true">Oui</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Si oui, précisez :</label>
+                                    <input type="text" name="medication_details" class="form-control" placeholder="Médicaments, doses...">
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-outline-secondary prev-section" data-prev="section-personal">
+                                    <i class="fas fa-arrow-left me-2"></i>Précédent
+                                </button>
+                                <button type="button" class="btn btn-success next-section" data-next="section-profession">
+                                    Suivant <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Étape 4: Profession et localisation -->
+                        <div class="registration-section d-none" id="section-profession">
+                            <h3 class="text-success mb-4">📍 Localisation et profession</h3>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Profession (optionnel)</label>
+                                    <input type="text" name="profession" class="form-control" placeholder="Agriculteur, enseignant, commerçant...">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Statut vaccinal</label>
+                                    <select name="vaccination_status" class="form-control">
+                                        <option value="unknown">Inconnu</option>
+                                        <option value="up_to_date">À jour</option>
+                                        <option value="partial">Partiel</option>
+                                        <option value="none">Aucun vaccin</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Région *</label>
+                                    <select name="region" class="form-control" required>
+                                        <option value="">Sélectionnez votre région</option>
+                                        <option value="Adamaoua">Adamaoua</option>
+                                        <option value="Centre">Centre</option>
+                                        <option value="Est">Est</option>
+                                        <option value="Extrême-Nord">Extrême-Nord</option>
+                                        <option value="Littoral">Littoral</option>
+                                        <option value="Nord">Nord</option>
+                                        <option value="Nord-Ouest">Nord-Ouest</option>
+                                        <option value="Ouest">Ouest</option>
+                                        <option value="Sud">Sud</option>
+                                        <option value="Sud-Ouest">Sud-Ouest</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Village (optionnel)</label>
+                                    <input type="text" name="village" class="form-control" placeholder="Nom de votre village">
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-outline-secondary prev-section" data-prev="section-health">
+                                    <i class="fas fa-arrow-left me-2"></i>Précédent
+                                </button>
+                                <button type="button" class="btn btn-success next-section" data-next="section-habits">
+                                    Suivant <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Étape 5: Habitudes et environnement -->
+                        <div class="registration-section d-none" id="section-habits">
+                            <h3 class="text-success mb-4">🌿 Environnement et habitudes</h3>
+                            
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Facteurs environnementaux :</label>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" name="outdoor_work" value="true" id="outdoor_work">
+                                    <label class="form-check-label" for="outdoor_work">
+                                        Je travaille principalement en extérieur
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" name="no_mosquito_net" value="true" id="no_mosquito_net">
+                                    <label class="form-check-label" for="no_mosquito_net">
+                                        Je n'utilise pas de moustiquaire
+                                    </label>
+                                </div>
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" name="stagnant_water" value="true" id="stagnant_water">
+                                    <label class="form-check-label" for="stagnant_water">
+                                        Il y a de l'eau stagnante près de chez moi
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Accès à internet</label>
+                                    <select name="internet_access" class="form-control">
+                                        <option value="false">Non</option>
+                                        <option value="true">Oui</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Accès à un téléphone</label>
+                                    <select name="gsm_access" class="form-control">
+                                        <option value="false">Non</option>
+                                        <option value="true">Oui</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Numéro de téléphone (optionnel)</label>
+                                    <input type="tel" name="phone" class="form-control" placeholder="Pour les notifications">
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Accès aux soins de santé</label>
+                                    <select name="health_access" class="form-control">
+                                        <option value="unknown">Inconnu</option>
+                                        <option value="good">Bon accès</option>
+                                        <option value="limited">Accès limité</option>
+                                        <option value="poor">Mauvais accès</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-outline-secondary prev-section" data-prev="section-profession">
+                                    <i class="fas fa-arrow-left me-2"></i>Précédent
+                                </button>
+                                <button type="button" class="btn btn-success next-section" data-next="section-preferences">
+                                    Suivant <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Étape 6: Préférences -->
+                        <div class="registration-section d-none" id="section-preferences">
+                            <h3 class="text-success mb-4">⚙️ Préférences</h3>
+                            
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Préférences de notification :</label>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" name="audio_preference" value="true" id="audio_preference">
+                                    <label class="form-check-label" for="audio_preference">
+                                        Je préfère la lecture audio des messages
+                                    </label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" name="allow_geolocation" value="true" id="allow_geolocation">
+                                    <label class="form-check-label" for="allow_geolocation">
+                                        Autoriser la géolocalisation pour des alertes précises
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-outline-secondary prev-section" data-prev="section-habits">
+                                    <i class="fas fa-arrow-left me-2"></i>Précédent
+                                </button>
+                                <button type="button" class="btn btn-success next-section" data-next="section-final">
+                                    Suivant <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
 
                         <!-- Étape finale -->
                         <div class="registration-section d-none" id="section-final">
@@ -120,7 +332,7 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" name="data_consent" id="data_consent" required>
                                     <label class="form-check-label fw-bold" for="data_consent">
-                                        12. J'autorise l'usage de mes données (anonymisées) pour améliorer les recommandations
+                                        J'autorise l'usage de mes données (anonymisées) pour améliorer les recommandations
                                     </label>
                                 </div>
                             </div>
@@ -131,7 +343,7 @@
                             </div>
 
                             <div class="d-flex justify-content-between">
-                                <button type="button" class="btn btn-outline-secondary prev-section" data-prev="section-habits">
+                                <button type="button" class="btn btn-outline-secondary prev-section" data-prev="section-preferences">
                                     <i class="fas fa-arrow-left me-2"></i>Précédent
                                 </button>
                                 <button type="submit" class="btn btn-success btn-lg">
@@ -147,7 +359,6 @@
 </section>
 
 <script>
-// JavaScript pour la navigation multi-étapes
 document.addEventListener('DOMContentLoaded', function() {
     // Navigation entre sections
     document.querySelectorAll('.next-section').forEach(button => {
@@ -167,6 +378,48 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById(prevSectionId).classList.remove('d-none');
         });
     });
+
+    // Gestion dynamique des champs conditionnels
+    const allergyToggle = document.querySelector('.allergy-toggle');
+    const allergyDetails = document.querySelector('input[name="allergies_details"]');
+    
+    allergyToggle.addEventListener('change', function() {
+        allergyDetails.disabled = this.value !== 'true';
+    });
+
+    const medicationToggle = document.querySelector('.medication-toggle');
+    const medicationDetails = document.querySelector('input[name="medication_details"]');
+    
+    medicationToggle.addEventListener('change', function() {
+        medicationDetails.disabled = this.value !== 'true';
+    });
+
+    // Désactiver les champs détaillés par défaut
+    allergyDetails.disabled = true;
+    medicationDetails.disabled = true;
 });
 </script>
+
+<style>
+.registration-section {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.health-checkboxes {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    padding: 1rem;
+}
+
+.form-check {
+    margin-bottom: 0.5rem;
+}
+</style>
 {% endblock %}

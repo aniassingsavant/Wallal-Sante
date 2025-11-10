@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}S'inscrire - Wallal Santé{% endblock %}
+
+{% block content %}
+<section class="container py-5" data-aos="fade-up">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-success text-white py-4">
+                    <h1 class="h2 mb-0 text-center">
+                        <i class="fas fa-user-plus me-2"></i>Créer votre compte santé
+                    </h1>
+                </div>
+                <div class="card-body p-5">
+                    <form method="post" id="registrationForm">
+                        {% csrf_token %}
+                        
+                        <!-- Étape 1: Compte -->
+                        <div class="registration-section" id="section-account">
+                            <h3 class="text-success mb-4">🔐 Compte utilisateur</h3>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Nom d'utilisateur *</label>
+                                    <input type="text" name="username" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Email *</label>
+                                    <input type="email" name="email" class="form-control" required>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Mot de passe *</label>
+                                    <input type="password" name="password1" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">Confirmation *</label>
+                                    <input type="password" name="password2" class="form-control" required>
+                                </div>
+                            </div>
+                            
+                            <button type="button" class="btn btn-success next-section" data-next="section-personal">
+                                Suivant <i class="fas fa-arrow-right ms-2"></i>
+                            </button>
+                        </div>
+
+                        <!-- Étape 2: Profil personnel -->
+                        <div class="registration-section d-none" id="section-personal">
+                            <h3 class="text-success mb-4">👤 Informations personnelles</h3>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">1. Langue préférée *</label>
+                                    <select name="language" class="form-control" required>
+                                        <option value="fr">Français</option>
+                                        <option value="ful">Fulfulde</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">2. Prénom (optionnel)</label>
+                                    <input type="text" name="first_name" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">3. Âge *</label>
+                                    <select name="age_group" class="form-control" required>
+                                        <option value="">Sélectionnez...</option>
+                                        <option value="0-4">0–4 ans</option>
+                                        <option value="5-14">5–14 ans</option>
+                                        <option value="15-24">15–24 ans</option>
+                                        <option value="25-44">25–44 ans</option>
+                                        <option value="45-64">45–64 ans</option>
+                                        <option value="65+">65 ans et plus</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold">4. Sexe *</label>
+                                    <select name="gender" class="form-control" required>
+                                        <option value="">Sélectionnez...</option>
+                                        <option value="M">Homme</option>
+                                        <option value="F">Femme</option>
+                                        <option value="O">Autre</option>
+                                        <option value="N">Préfère pas dire</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">5. Êtes-vous enceinte ? *</label>
+                                <select name="is_pregnant" class="form-control" required>
+                                    <option value="na">Ne s'applique pas</option>
+                                    <option value="yes">Oui</option>
+                                    <option value="no">Non</option>
+                                </select>
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-outline-secondary prev-section" data-prev="section-account">
+                                    <i class="fas fa-arrow-left me-2"></i>Précédent
+                                </button>
+                                <button type="button" class="btn btn-success next-section" data-next="section-health">
+                                    Suivant <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Continuer avec les autres étapes... -->
+
+                        <!-- Étape finale -->
+                        <div class="registration-section d-none" id="section-final">
+                            <h3 class="text-success mb-4">✅ Finalisation</h3>
+                            
+                            <div class="mb-4">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="data_consent" id="data_consent" required>
+                                    <label class="form-check-label fw-bold" for="data_consent">
+                                        12. J'autorise l'usage de mes données (anonymisées) pour améliorer les recommandations
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="alert alert-success">
+                                <i class="fas fa-check-circle me-2"></i>
+                                Votre profil nous aidera à personnaliser vos conseils de santé et notifications.
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <button type="button" class="btn btn-outline-secondary prev-section" data-prev="section-habits">
+                                    <i class="fas fa-arrow-left me-2"></i>Précédent
+                                </button>
+                                <button type="submit" class="btn btn-success btn-lg">
+                                    <i class="fas fa-check me-2"></i>Créer mon compte
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+// JavaScript pour la navigation multi-étapes
+document.addEventListener('DOMContentLoaded', function() {
+    // Navigation entre sections
+    document.querySelectorAll('.next-section').forEach(button => {
+        button.addEventListener('click', function() {
+            const currentSection = this.closest('.registration-section');
+            const nextSectionId = this.getAttribute('data-next');
+            currentSection.classList.add('d-none');
+            document.getElementById(nextSectionId).classList.remove('d-none');
+        });
+    });
+
+    document.querySelectorAll('.prev-section').forEach(button => {
+        button.addEventListener('click', function() {
+            const currentSection = this.closest('.registration-section');
+            const prevSectionId = this.getAttribute('data-prev');
+            currentSection.classList.add('d-none');
+            document.getElementById(prevSectionId).classList.remove('d-none');
+        });
+    });
+});
+</script>
+{% endblock %}

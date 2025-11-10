@@ -1,6 +1,7 @@
 # conseils/models.py (ajouter ces modèles)
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 class HealthEstablishment(models.Model):
     name = models.CharField(max_length=200)
@@ -29,3 +30,21 @@ class AdminAuditLog(models.Model):
     object_id = models.CharField(max_length=100, blank=True)
     details = models.TextField(blank=True)
     timestamp = models.DateTimeField(auto_now_add=True)
+
+# models.py
+class TraditionalDoctor(models.Model):
+    name = models.CharField(max_length=100)
+    specialty = models.CharField(max_length=50, choices=[
+        ('digestif', 'Problèmes Digestifs'),
+        ('respiratoire', 'Problèmes Respiratoires'),
+        ('dermatologique', 'Problèmes de Peau'),
+        ('douleurs', 'Douleurs Corporelles'),
+    ])
+    phone = models.CharField(max_length=20)
+    location = models.CharField(max_length=100)
+    experience = models.IntegerField()
+    rating = models.FloatField()
+    description = models.TextField()
+    
+    def __str__(self):
+        return self.name
